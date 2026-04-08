@@ -1,13 +1,15 @@
-import { Box, Tag, Users, BarChart3 } from "lucide-react";
+import { Box, Tag, Users, BarChart3, FolderOpen } from "lucide-react";
 import { cn } from "./ui/utils";
 
 interface SidebarProps {
   activeMenu?: string;
+  onMenuChange?: (menuId: string) => void;
 }
 
-export function Sidebar({ activeMenu = "tags" }: SidebarProps) {
+export function Sidebar({ activeMenu = "tags", onMenuChange }: SidebarProps) {
   const menuItems = [
     { id: "applications", label: "应用管理", icon: Box },
+    { id: "categories", label: "类型管理", icon: FolderOpen },
     { id: "tags", label: "标签管理", icon: Tag },
     { id: "users", label: "用户管理", icon: Users },
     { id: "statistics", label: "平台数据", icon: BarChart3 },
@@ -36,6 +38,7 @@ export function Sidebar({ activeMenu = "tags" }: SidebarProps) {
           return (
             <button
               key={item.id}
+              onClick={() => onMenuChange?.(item.id)}
               className={cn(
                 "w-full flex items-center gap-2 px-3 py-2 rounded-md transition-colors text-sm",
                 isActive
